@@ -1,0 +1,7 @@
+*
+!*.py
+!.gitignore
+!.gitmodules
+!/administrativeAreaCode
+!/administrativeAreaCode/*
+!requirements.txt

@@ -1,0 +1,3 @@
+[submodule "administrativeAreaCode"]
+	path = administrativeAreaCode
+	url = https://github.com/madefor/jisx0402.git
