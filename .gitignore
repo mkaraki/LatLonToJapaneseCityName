@@ -1,4 +1,5 @@
 *
+!/cgi-bin
 !*.py
 !.gitignore
 !.gitmodules

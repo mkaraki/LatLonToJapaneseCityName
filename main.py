@@ -68,7 +68,7 @@ if (os.path.exists('prefectures.mpolys')):
 
 regionMpolys = {}
 skip_regionMpolys = False
-if (os.path.exists('prefectures.mpolys')):
+if (os.path.exists('all_region.mpolys')):
     with open('all_region.mpolys', 'rb') as f:
         regionMpolys = pickle.load(f)
         skip_regionMpolys = True
@@ -76,6 +76,7 @@ if (os.path.exists('prefectures.mpolys')):
 
 jpn_geo = None
 if (not skip_mpolys and not skip_regionMpolys):
+    print('Reading shapefile')
     jpn_geo = gpd.read_file('N03-22_220101.shp')
 
 
@@ -133,6 +134,9 @@ for prefidx, pref in enumerate(prefs):
                 continue
             regionMpolys[prefidx][areaCode] = mpoly
 
+        with open('region_' + str(prefidx) + '.mpolys', 'wb') as f:
+            pickle.dump(regionMpolys[prefidx], f)
+
 
 if (not skip_mpolys):
     with open('prefectures.mpolys', 'wb') as f:
@@ -189,7 +193,13 @@ def searchCityFromLatLonAndPref(pref_code, search_latlon):
 search_latlon = [45.321208, 148.524874]
 
 s_prefcode = searchPrefFromLatLon(mpolys, search_latlon)
+if (s_prefcode == None):
+    print('Not found')
+    exit()
 print(prefs[s_prefcode])
 
 s_areacode = searchCityFromLatLonAndPref(s_prefcode, search_latlon)
+if (s_areacode == None):
+    print('Not found')
+    exit()
 print(administrativeAreaCode[s_prefcode][s_areacode])
